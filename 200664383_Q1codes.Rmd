@@ -1,0 +1,310 @@
+---
+title: "Question 1"
+date: "4/1/2022"
+output: html_notebook
+---
+
+
+#Question 1
+
+```
+#Loading packages
+
+install.packages("tidyverse")
+library("tidyverse")
+install.packages("dplyr")
+library("dplyr")
+install.packages("ggplot2")
+library(ggplot2)
+
+
+#Best Time Of Year
+##Using subet functon on X2007
+january07 <- subset(X2007, Month ==1)
+february07 <- subset(X2007, Month ==2)
+march07 <- subset(X2007, Month ==3)
+april07 <- subset(X2007, Month ==4)
+may07 <- subset(X2007, Month ==5)
+june07 <- subset(X2007, Month ==6)
+july07 <- subset(X2007, Month ==7)
+august07 <- subset(X2007, Month ==8)
+september07 <- subset(X2007, Month ==9)
+october07 <- subset(X2007, Month ==10)
+november07 <- subset(X2007, Month ==11)
+december07 <- subset(X2007, Month ==12)
+
+##finding monthly avg for depdelay in 2007
+mean(january07$DepDelay, na.rm = TRUE)
+mean(february07$DepDelay, na.rm = TRUE)
+mean(march07$DepDelay, na.rm = TRUE)
+mean(april07$DepDelay, na.rm = TRUE)
+mean(may07$DepDelay, na.rm = TRUE)
+mean(june07$DepDelay, na.rm = TRUE)
+mean(july07$DepDelay, na.rm = TRUE)
+mean(august07$DepDelay, na.rm = TRUE)
+mean(september07$DepDelay, na.rm = TRUE)
+mean(october07$DepDelay, na.rm = TRUE)
+mean(november07$DepDelay, na.rm = TRUE)
+mean(december07$DepDelay, na.rm = TRUE)
+
+##finding monthly avg arrdelay in 2007
+mean(january07$ArrDelay, na.rm = TRUE)
+mean(february07$ArrDelay, na.rm = TRUE)
+mean(march07$ArrDelay, na.rm = TRUE)
+mean(april07$ArrDelay, na.rm = TRUE)
+mean(may07$ArrDelay, na.rm = TRUE)
+mean(june07$ArrDelay, na.rm = TRUE)
+mean(july07$ArrDelay, na.rm = TRUE)
+mean(august07$ArrDelay, na.rm = TRUE)
+mean(september07$ArrDelay, na.rm = TRUE)
+mean(october07$ArrDelay, na.rm = TRUE)
+mean(november07$ArrDelay, na.rm = TRUE)
+mean(december07$ArrDelay, na.rm = TRUE)
+
+##creating subset for 2006
+january06 <- subset(X2006, Month ==1)
+february06 <- subset(X2006, Month ==2)
+march06 <- subset(X2006, Month ==3)
+april06 <- subset(X2006, Month ==4)
+may06 <- subset(X2006, Month ==5)
+june06 <- subset(X2006, Month ==6)
+july06 <- subset(X2006, Month ==7)
+august06 <- subset(X2006, Month ==8)
+september06 <- subset(X2006, Month ==9)
+october06 <- subset(X2006, Month ==10)
+november06 <- subset(X2006, Month ==11)
+december06 <- subset(X2006, Month ==12)
+
+##finding monthly avg for depdelay in 2006
+mean(january06$DepDelay, na.rm = TRUE)
+mean(february06$DepDelay, na.rm = TRUE)
+mean(march06$DepDelay, na.rm = TRUE)
+mean(april06$DepDelay, na.rm = TRUE)
+mean(may06$DepDelay, na.rm = TRUE)
+mean(june06$DepDelay, na.rm = TRUE)
+mean(july06$DepDelay, na.rm = TRUE)
+mean(august06$DepDelay, na.rm = TRUE)
+mean(september06$DepDelay, na.rm = TRUE)
+mean(october06$DepDelay, na.rm = TRUE)
+mean(november06$DepDelay, na.rm = TRUE)
+
+##finding monthly avg for arrdelay in 2006
+mean(january06$ArrDelay, na.rm = TRUE)
+mean(february06$ArrDelay, na.rm = TRUE)
+mean(march06$ArrDelay, na.rm = TRUE)
+mean(april06$ArrDelay, na.rm = TRUE)
+mean(may06$ArrDelay, na.rm = TRUE)
+mean(june06$ArrDelay, na.rm = TRUE)
+mean(july06$ArrDelay, na.rm = TRUE)
+mean(august06$ArrDelay, na.rm = TRUE)
+mean(september06$ArrDelay, na.rm = TRUE)
+mean(october06$ArrDelay, na.rm = TRUE)
+mean(november06$ArrDelay, na.rm = TRUE)
+mean(december06$ArrDelay, na.rm = TRUE)
+
+## Comparing delays by years 
+For dep delay:
+a <-c('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
+b <-c(8.08, 9.14, 9.76, 8.19, 8.54, 12.93, 12.7, 9.94, 8.76, 10.65, 8.95, 13.16)
+c <-c(10.29, 14.02, 11.84, 10.08, 8.33, 16.21, 14.8, 13.52, 6.16, 7.97, 7.45, 16.20)
+compareDepDelay2 <- data.frame(a,b,c)
+names(compareDepDelay2) <- c('Months', '2006', '2007')
+
+For Arr Delay:
+a <-c('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
+b <-c(5.63, 7.36, 7.93, 6.42, 6.89, 12.05, 11.31, 8.69, 8.39, 10.69, 7.26, 11.18)
+c <-c(9.16, 13.52, 10.08, 8.52, 7.04, 16.18, 14.11, 12.57, 3.75, 6.51, 4.79, 16.21)
+compareArrDelay2 <- data.frame(a,b,c)
+names(compareArrDelay2) <- c('Months', '2006', '2007')
+
+#Best Day Of Week
+##Taking subsets by days for 2007
+monday07 <- subset(X2007, DayOfWeek ==1)
+tuesday07 <- subset(X2007, DayOfWeek ==2)
+wednesday07 <- subset(X2007, DayOfWeek ==3)
+thursday07 <- subset(X2007, DayOfWeek ==4)
+friday07 <- subset(X2007, DayOfWeek ==5)
+saturday07 <- subset(X2007, DayOfWeek ==6)
+sunday07 <- subset(X2007, DayOfWeek ==7)
+
+##taking daily average of Dep delay in 2007
+mean(monday07$DepDelay, na.rm = TRUE)
+mean(tuesday07$DepDelay, na.rm = TRUE)
+mean(wednesday07$DepDelay, na.rm = TRUE)
+mean(thursday07$DepDelay, na.rm = TRUE)
+mean(friday07$DepDelay, na.rm = TRUE)
+mean(saturday07$DepDelay, na.rm = TRUE)
+mean(sunday07$DepDelay, na.rm = TRUE)
+
+##taking daily average of Arr delay in 2007
+mean(monday07$ArrDelay, na.rm = TRUE)
+mean(tuesday07$ArrDelay, na.rm = TRUE)
+mean(wednesday07$ArrDelay, na.rm = TRUE)
+mean(thursday07$ArrDelay, na.rm = TRUE)
+mean(friday07$ArrDelay, na.rm = TRUE)
+mean(saturday07$ArrDelay, na.rm = TRUE)
+mean(sunday07$ArrDelay, na.rm = TRUE)
+
+
+##Taking subsets by days for 2006
+monday06 <- subset(X2006, DayOfWeek ==1)
+tuesday06 <- subset(X2006, DayOfWeek ==2)
+wednesday06 <- subset(X2006, DayOfWeek ==3)
+thursday06 <- subset(X2006, DayOfWeek ==4)
+friday06 <- subset(X2006, DayOfWeek ==5)
+saturday06 <- subset(X2006, DayOfWeek ==6)
+sunday06 <- subset(X2006, DayOfWeek ==7)
+
+##taking daily average of Dep delay in 2006
+mean(monday06$DepDelay, na.rm = TRUE)
+mean(tuesday06$DepDelay, na.rm = TRUE)
+mean(wednesday06$DepDelay, na.rm = TRUE)
+mean(thursday06$DepDelay, na.rm = TRUE)
+mean(friday06$DepDelay, na.rm = TRUE)
+mean(saturday06$DepDelay, na.rm = TRUE)
+mean(sunday06$DepDelay, na.rm = TRUE)
+
+##taking daily average of Arr delay in 2006
+mean(monday06$ArrDelay, na.rm = TRUE)
+mean(tuesday06$ArrDelay, na.rm = TRUE)
+mean(wednesday06$ArrDelay, na.rm = TRUE)
+mean(thursday06$ArrDelay, na.rm = TRUE)
+mean(friday06$ArrDelay, na.rm = TRUE)
+mean(saturday06$ArrDelay, na.rm = TRUE)
+mean(sunday06$ArrDelay, na.rm = TRUE)
+
+##Comparing delays by days 
+For dep delay:
+a <-c('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')
+b <-c(10.34, 7.70, 8.90, 11.81, 13.09, 8.28, 10.22)
+c <-c(11.89, 9.40, 10.69, 12.89, 13.58, 8.99, 11.98)
+compareDepDelaydays <- data.frame(a,b,c)
+names(compareDepDelaydays) <- c('Days', '2006', '2007')
+
+For arr delay:
+a <-c('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')
+b <-c(8.84, 6.20, 7.98, 11.58, 12.32, 5.17, 8.14)
+c <-c(10.51, 8.26, 9.96, 12.69, 13.07, 5.85, 10.33)
+compareArrDelaydays <- data.frame(a,b,c)
+names(compareArrDelaydays) <- c('Days', '2006', '2007')
+
+##Best Time of Day
+min(X2006$DepDelay, na.rm=T)
+max(X2006$DepDelay, na.rm=T)
+
+min(X2007$DepDelay, na.rm=T)
+max(X2007$DepDelay, na.rm=T)
+
+##try to subset timing by hours for 2006
+twelveam06 <- subset(X2006, DepTime < 100)
+oneam06 <- subset(X2006, DepTime > 99 & DepTime < 200)
+twoam06 <- subset(X2006, DepTime > 199 & DepTime < 300)
+threeam06 <- subset(X2006, DepTime > 299 & DepTime < 400)
+fouram06 <- subset(X2006, DepTime > 399 & DepTime < 500)
+fiveam06 <- subset(X2006, DepTime > 499 & DepTime < 600)
+sixam06 <- subset(X2006, DepTime > 599 & DepTime < 700)
+sevenam06 <- subset(X2006, DepTime > 699 & DepTime < 800)
+eightam06 <- subset(X2006, DepTime > 799 & DepTime < 900)
+nineam06 <- subset(X2006, DepTime > 899 & DepTime < 1000)
+tenam06 <- subset(X2006, DepTime > 999 & DepTime < 1100)
+elevenam06 <- subset(X2006, DepTime > 1099 & DepTime < 1200)
+twelvepm06 <- subset(X2006, DepTime > 1199 & DepTime < 1300)
+onepm06 <- subset(X2006, DepTime > 1299 & DepTime < 1400)
+twopm06 <- subset(X2006, DepTime > 1399 & DepTime < 1500)
+threepm06 <- subset(X2006, DepTime > 1499 & DepTime < 1600)
+fourpm06 <- subset(X2006, DepTime > 1599 & DepTime < 1700)
+fivepm06 <- subset(X2006, DepTime > 1699 & DepTime < 1800)
+sixpm06 <- subset(X2006, DepTime > 1799 & DepTime < 1900)
+sevenpm06 <- subset(X2006, DepTime > 1899 & DepTime < 2000)
+eightpm06 <- subset(X2006, DepTime > 1999 & DepTime < 2100)
+ninepm06 <- subset(X2006, DepTime > 2099 & DepTime < 2200)
+tenpm06 <- subset(X2006, DepTime > 2199 & DepTime < 2300)
+elevenpm06 <- subset(X2006, DepTime > 2299 & DepTime < 2400)
+
+##finding mean of Depdelay in 2006 by hours
+mean(twelveam06$DepDelay, na.rm=TRUE)
+mean(oneam06$DepDelay, na.rm=TRUE)
+mean(twoam06$DepDelay, na.rm=TRUE)
+mean(threeam06$DepDelay, na.rm=TRUE)
+mean(fouram06$DepDelay, na.rm=TRUE)
+mean(fiveam06$DepDelay, na.rm=TRUE)
+mean(sixam06$DepDelay, na.rm=TRUE)
+mean(sevenam06$DepDelay, na.rm=TRUE)
+mean(eightam06$DepDelay, na.rm=TRUE)
+mean(nineam06$DepDelay, na.rm=TRUE)
+mean(tenam06$DepDelay, na.rm=TRUE)
+mean(elevenam06$DepDelay, na.rm=TRUE)
+mean(twelvepm06$DepDelay, na.rm=TRUE)
+mean(onepm06$DepDelay, na.rm=TRUE)
+mean(twopm06$DepDelay, na.rm=TRUE)
+mean(threepm06$DepDelay, na.rm=TRUE)
+mean(fourpm06$DepDelay, na.rm=TRUE)
+mean(fivepm06$DepDelay, na.rm=TRUE)
+mean(sixpm06$DepDelay, na.rm=TRUE)
+mean(sevenpm06$DepDelay, na.rm=TRUE)
+mean(eightpm06$DepDelay, na.rm=TRUE)
+mean(ninepm06$DepDelay, na.rm=TRUE)
+mean(tenpm06$DepDelay, na.rm=TRUE)
+mean(elevenpm06$DepDelay, na.rm=TRUE)
+
+
+##subset timing by hours for 2007
+twelveam07 <- subset(X2007, DepTime < 100)
+oneam07 <- subset(X2007, DepTime > 99 & DepTime < 200)
+twoam07 <- subset(X2007, DepTime > 199 & DepTime < 300)
+threeam07 <- subset(X2007, DepTime > 299 & DepTime < 400)
+fouram07 <- subset(X2007, DepTime > 399 & DepTime < 500)
+fiveam07 <- subset(X2007, DepTime > 499 & DepTime < 600)
+sixam07 <- subset(X2007, DepTime > 599 & DepTime < 700)
+sevenam07 <- subset(X2007, DepTime > 699 & DepTime < 800)
+eightam07 <- subset(X2007, DepTime > 799 & DepTime < 900)
+nineam07 <- subset(X2007, DepTime > 899 & DepTime < 1000)
+tenam07 <- subset(X2007, DepTime > 999 & DepTime < 1100)
+elevenam07 <- subset(X2007, DepTime > 1099 & DepTime < 1200)
+twelvepm07 <- subset(X2007, DepTime > 1199 & DepTime < 1300)
+onepm07 <- subset(X2007, DepTime > 1299 & DepTime < 1400)
+twopm07 <- subset(X2007, DepTime > 1399 & DepTime < 1500)
+threepm07 <- subset(X2007, DepTime > 1499 & DepTime < 1600)
+fourpm07 <- subset(X2007, DepTime > 1599 & DepTime < 1700)
+fivepm07 <- subset(X2007, DepTime > 1699 & DepTime < 1800)
+sixpm07 <- subset(X2007, DepTime > 1799 & DepTime < 1900)
+sevenpm07 <- subset(X2007, DepTime > 1899 & DepTime < 2000)
+eightpm07 <- subset(X2007, DepTime > 1999 & DepTime < 2100)
+ninepm07 <- subset(X2007, DepTime > 2099 & DepTime < 2200)
+tenpm07 <- subset(X2007, DepTime > 2199 & DepTime < 2300)
+elevenpm07 <- subset(X2007, DepTime > 2299 & DepTime < 2400)
+
+##finding mean of Depdelay in 2007 by hours
+mean(twelveam07$DepDelay, na.rm=TRUE)
+mean(oneam07$DepDelay, na.rm=TRUE)
+mean(twoam07$DepDelay, na.rm=TRUE)
+mean(threeam07$DepDelay, na.rm=TRUE)
+mean(fouram07$DepDelay, na.rm=TRUE)
+mean(fiveam07$DepDelay, na.rm=TRUE)
+mean(sixam07$DepDelay, na.rm=TRUE)
+mean(sevenam07$DepDelay, na.rm=TRUE)
+mean(eightam07$DepDelay, na.rm=TRUE)
+mean(nineam07$DepDelay, na.rm=TRUE)
+mean(tenam07$DepDelay, na.rm=TRUE)
+mean(elevenam07$DepDelay, na.rm=TRUE)
+mean(twelvepm07$DepDelay, na.rm=TRUE)
+mean(onepm07$DepDelay, na.rm=TRUE)
+mean(twopm07$DepDelay, na.rm=TRUE)
+mean(threepm07$DepDelay, na.rm=TRUE)
+mean(fourpm07$DepDelay, na.rm=TRUE)
+mean(fivepm07$DepDelay, na.rm=TRUE)
+mean(sixpm07$DepDelay, na.rm=TRUE)
+mean(sevenpm07$DepDelay, na.rm=TRUE)
+mean(eightpm07$DepDelay, na.rm=TRUE)
+mean(ninepm07$DepDelay, na.rm=TRUE)
+mean(tenpm07$DepDelay, na.rm=TRUE)
+mean(elevenpm07$DepDelay, na.rm=TRUE)
+
+##comparing hourly delays between 2006 and 2007
+a <-c('12am', '1am', '2am', '3am', '4am', '5am', '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', '9pm', '10pm', '11pm' )
+b <-c(56.05, 77.45, 92.20, 83.57, 4.97, -3.98, -1.64, 0.52, 2.04, 4.25, 5.34, 6.68, 7.63, 8.69, 9.68, 11.45, 12.40, 12.99, 15.40, 17.84, 22.57, 25.3, 37.70, 48.00)
+c <-c(64.31, 104.67, 125.98, 146.27, 7.01, -3.89, -1.09, 1.07, 2.70, 4.90, 6.60, 7.23, 8.53, 9.63, 11.19, 12.89, 13.44, 14.60, 17.31, 18.93, 25.31, 27.06, 41.73, 56.55)
+comparehourlydelay <- data.frame(a,b,c)
+names(comparehourlydelay) <- c('Hour', '2006', '2007')
+
+```

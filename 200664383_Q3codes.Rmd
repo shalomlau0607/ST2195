@@ -1,0 +1,150 @@
+---
+title: "Question 3"
+date: "4/1/2022"
+output: html_document
+---
+
+
+#Question 3
+
+```
+#Load libraries
+library("tidyverse")
+library("dplyr")
+library("ggplot2")
+
+#ensure that the data sets are loaded and working well
+summary(X2007)
+summary(X2006)
+summary(airports)
+
+
+#filtering out random states to find a trend
+data_DTW07 <- X2007[str_detect(X2007$Dest, "DTW"),]
+data_DTW07
+
+data_DTW06 <- X2006[str_detect(X2006$Dest, "DTW"),]
+data_DTW06
+
+
+data_DFW07 <- X2007[str_detect(X2007$Dest, "DFW"),]
+data_DFW07
+
+data_DFW06 <- X2006[str_detect(X2006$Dest, "DFW"),]
+data_DFW06
+
+data_RSW07 <- X2007[str_detect(X2007$Dest, "RSW"),]
+data_RSW07
+
+data_RSW06 <- X2006[str_detect(X2006$Dest, "RSW"),]
+data_RSW06
+
+
+##subsetting DTW 2007 by months
+janDTW07 <- subset(data_DTW07, Month ==1)
+febDTW07 <- subset(data_DTW07, Month ==2)
+marDTW07 <- subset(data_DTW07, Month ==3)
+aprDTW07 <- subset(data_DTW07, Month ==4)
+mayDTW07 <- subset(data_DTW07, Month ==5)
+junDTW07 <- subset(data_DTW07, Month ==6)
+julDTW07 <- subset(data_DTW07, Month ==7)
+augDTW07 <- subset(data_DTW07, Month ==8)
+sepDTW07 <- subset(data_DTW07, Month ==9)
+octDTW07 <- subset(data_DTW07, Month ==10)
+novDTW07 <- subset(data_DTW07, Month ==11)
+decDTW07 <- subset(data_DTW07, Month ==12)
+
+##subsetting DTW by months in 2006
+janDTW06 <- subset(data_DTW06, Month ==1)
+febDTW06 <- subset(data_DTW06, Month ==2)
+marDTW06 <- subset(data_DTW06, Month ==3)
+aprDTW06 <- subset(data_DTW06, Month ==4)
+mayDTW06 <- subset(data_DTW06, Month ==5)
+junDTW06 <- subset(data_DTW06, Month ==6)
+julDTW06 <- subset(data_DTW06, Month ==7)
+augDTW06 <- subset(data_DTW06, Month ==8)
+sepDTW06 <- subset(data_DTW06, Month ==9)
+octDTW06 <- subset(data_DTW06, Month ==10)
+novDTW06 <- subset(data_DTW06, Month ==11)
+decDTW06 <- subset(data_DTW06, Month ==12)
+
+##comparing number of flights to Michigan(MI), DTW
+a <-c('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
+b <-c(9950, 9292, 10770, 10315,10632, 10396, 11019, 11264, 11035, 11591, 10867, 11269)
+c <-c(15054, 13841, 15477, 14944, 15343, 15066, 15239, 15254, 14175, 14967, 13943, 14168)
+ComparingvisitorDTW <- data.frame(a,b,c)
+names(ComparingvisitorDTW) <- c('Month', 'NumberofFlights_2006', 'NumberofFlights_2007')
+
+
+##subsetting DFW 2007 by months
+janDFW07 <- subset(data_DFW07, Month ==1)
+febDFW07 <- subset(data_DFW07, Month ==2)
+marDFW07 <- subset(data_DFW07, Month ==3)
+aprDFW07 <- subset(data_DFW07, Month ==4)
+mayDFW07 <- subset(data_DFW07, Month ==5)
+junDFW07 <- subset(data_DFW07, Month ==6)
+julDFW07 <- subset(data_DFW07, Month ==7)
+augDFW07 <- subset(data_DFW07, Month ==8)
+sepDFW07 <- subset(data_DFW07, Month ==9)
+octDFW07 <- subset(data_DFW07, Month ==10)
+novDFW07 <- subset(data_DFW07, Month ==11)
+decDFW07 <- subset(data_DFW07, Month ==12)
+
+##subsetting DFW 2006 by months
+janDFW06 <- subset(data_DFW06, Month ==1)
+febDFW06 <- subset(data_DFW06, Month ==2)
+marDFW06 <- subset(data_DFW06, Month ==3)
+aprDFW06 <- subset(data_DFW06, Month ==4)
+mayDFW06 <- subset(data_DFW06, Month ==5)
+junDFW06 <- subset(data_DFW06, Month ==6)
+julDFW06 <- subset(data_DFW06, Month ==7)
+augDFW06 <- subset(data_DFW06, Month ==8)
+sepDFW06 <- subset(data_DFW06, Month ==9)
+octDFW06 <- subset(data_DFW06, Month ==10)
+novDFW06 <- subset(data_DFW06, Month ==11)
+decDFW06 <- subset(data_DFW06, Month ==12)
+
+##comparing number of flights in 2006 and 2007 to Texas(TX), DFW
+a <-c('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
+b <-c(25165, 22803, 25106, 24723, 25722, 25221, 25929, 26194, 24827, 25713, 24445, 25464)
+c <-c(25391, 22731, 25299, 24273, 25454, 24770, 25657, 25777, 24317, 25141, 24239, 24432)
+ComparingvisitorDFW <- data.frame(a,b,c)
+names(ComparingvisitorDFW) <- c('Month', 'NumberofFlights_2006', 'NumberofFlights_2007')
+
+
+##subsetting RSW 2007 by months
+janRSW07 <- subset(data_RSW07, Month ==1)
+febRSW07 <- subset(data_RSW07, Month ==2)
+marRSW07 <- subset(data_RSW07, Month ==3)
+aprRSW07 <- subset(data_RSW07, Month ==4)
+mayRSW07 <- subset(data_RSW07, Month ==5)
+junRSW07 <- subset(data_RSW07, Month ==6)
+julRSW07 <- subset(data_RSW07, Month ==7)
+augRSW07 <- subset(data_RSW07, Month ==8)
+sepRSW07 <- subset(data_RSW07, Month ==9)
+octRSW07 <- subset(data_RSW07, Month ==10)
+novRSW07 <- subset(data_RSW07, Month ==11)
+decRSW07 <- subset(data_RSW07, Month ==12)
+
+##subsetting RSW 2006 by months
+janRSW06 <- subset(data_RSW06, Month ==1)
+febRSW06 <- subset(data_RSW06, Month ==2)
+marRSW06 <- subset(data_RSW06, Month ==3)
+aprRSW06 <- subset(data_RSW06, Month ==4)
+mayRSW06 <- subset(data_RSW06, Month ==5)
+junRSW06 <- subset(data_RSW06, Month ==6)
+julRSW06 <- subset(data_RSW06, Month ==7)
+augRSW06 <- subset(data_RSW06, Month ==8)
+sepRSW06 <- subset(data_RSW06, Month ==9)
+octRSW06 <- subset(data_RSW06, Month ==10)
+novRSW06 <- subset(data_RSW06, Month ==11)
+decRSW06 <- subset(data_RSW06, Month ==12)
+
+##comparing number of flights in 2006 and 2007 to Florida(FL), RSW
+a <-c('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
+b <-c(2483, 2552, 3108, 2858, 1936, 1758, 1816, 1786, 1557, 1766, 2116, 2704)
+c <-c(2908, 2849, 3543, 3063, 2041, 1745, 1764, 1698, 1511, 1745, 2164, 2585)
+ComparingvisitorRSW <- data.frame(a,b,c)
+names(ComparingvisitorRSW) <- c('Month', 'NumberofFlights_2006', 'NumberofFlights_2007')
+
+```

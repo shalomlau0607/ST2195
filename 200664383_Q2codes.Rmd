@@ -1,0 +1,157 @@
+---
+title: "Question 2"
+date: "4/1/2022"
+output: html_document
+---
+
+
+#Question 2
+
+```
+#load libraries
+install.packages("tidyverse")
+library("tidyverse")
+install.packages("dplyr")
+library("dplyr")
+install.packages("ggplot2")
+library(ggplot2)
+install.packages("stringr")
+library(stringr)
+
+#ensure data is working well
+head(X2006)
+head(X2007)
+
+#drop rows with 'none'
+plane_data_new=plane_data[!plane_data$year=="None",]
+#drop rows with NA values
+plane_data_new=plane_data_new[!(is.na(plane_data_new$year)),]
+
+#trying to filter out flights with top 5 oldest planes according to tailnum 2006
+oldN567AA06 <- subset(X2006, TailNum =="N567AA")
+oldN402AA06 <- subset(X2006, TailNum =="N402AA")
+oldN444AA06 <- subset(X2006, TailNum =="N444AA")
+oldN227AA06 <- subset(X2006, TailNum =="N227AA")
+oldN300SW06 <- subset(X2006, TailNum =="N300SW")
+
+#finding average departure delay for old
+mean(oldN567AA06$DepDelay, na.rm = TRUE)
+mean(oldN402AA06$DepDelay, na.rm = TRUE)
+mean(oldN444AA06$DepDelay, na.rm = TRUE)
+mean(oldN227AA06$DepDelay, na.rm = TRUE)
+mean(oldN300SW06$DepDelay, na.rm = TRUE)
+
+#finding average arrival delay for old
+mean(oldN567AA06$ArrDelay, na.rm = TRUE)
+mean(oldN402AA06$ArrDelay, na.rm = TRUE)
+mean(oldN444AA06$ArrDelay, na.rm = TRUE)
+mean(oldN227AA06$ArrDelay, na.rm = TRUE)
+mean(oldN300SW06$ArrDelay, na.rm = TRUE)
+
+
+#trying to filter out flights with top 5 newest planes according to tailnum 2006
+newN739AL06 <- subset(X2006, TailNum =="N739AL")
+newN358AA06 <- subset(X2006, TailNum =="N358AA")
+newN738AL06 <- subset(X2006, TailNum =="N738AL")
+newN843AL06 <- subset(X2006, TailNum =="N843AL")
+newN999CA06 <- subset(X2006, TailNum =="N999CA")
+
+#finding average departure delay for new
+mean(newN739AL06$DepDelay, na.rm = TRUE)
+mean(newN358AA06$DepDelay, na.rm = TRUE)
+mean(newN738AL06$DepDelay, na.rm = TRUE)
+mean(newN843AL06$DepDelay, na.rm = TRUE)
+mean(newN999CA06$DepDelay, na.rm = TRUE)
+
+#finding average arrival delay for new
+mean(newN739AL06$ArrDelay, na.rm = TRUE)
+mean(newN358AA06$ArrDelay, na.rm = TRUE)
+mean(newN738AL06$ArrDelay, na.rm = TRUE)
+mean(newN843AL06$ArrDelay, na.rm = TRUE)
+mean(newN999CA06$ArrDelay, na.rm = TRUE)
+
+
+#filter out flights with top 5 oldest planes according to tailnum 2007
+oldN567AA07 <- subset(X2007, TailNum =="N567AA")
+oldN402AA07 <- subset(X2007, TailNum =="N402AA")
+oldN444AA07 <- subset(X2007, TailNum =="N444AA")
+oldN227AA07 <- subset(X2007, TailNum =="N227AA")
+oldN300SW07 <- subset(X2007, TailNum =="N300SW")
+
+#finding average departure delay for old
+mean(oldN567AA07$DepDelay, na.rm = TRUE)
+mean(oldN402AA07$DepDelay, na.rm = TRUE)
+mean(oldN444AA07$DepDelay, na.rm = TRUE)
+mean(oldN227AA07$DepDelay, na.rm = TRUE)
+mean(oldN300SW07$DepDelay, na.rm = TRUE)
+
+#finding average arrival delay for old
+mean(oldN567AA07$ArrDelay, na.rm = TRUE)
+mean(oldN402AA07$ArrDelay, na.rm = TRUE)
+mean(oldN444AA07$ArrDelay, na.rm = TRUE)
+mean(oldN227AA07$ArrDelay, na.rm = TRUE)
+mean(oldN300SW07$ArrDelay, na.rm = TRUE)
+
+#filter out flights with top 5 newest planes according to tailnum 2007
+newN739AL07 <- subset(X2007, TailNum =="N739AL")
+newN358AA07 <- subset(X2007, TailNum =="N358AA")
+newN738AL07 <- subset(X2007, TailNum =="N738AL")
+newN843AL07 <- subset(X2007, TailNum =="N843AL")
+newN999CA07 <- subset(X2007, TailNum =="N999CA")
+
+#finding average departure delay for new
+mean(newN739AL07$DepDelay, na.rm = TRUE)
+mean(newN358AA07$DepDelay, na.rm = TRUE)
+mean(newN738AL07$DepDelay, na.rm = TRUE)
+mean(newN843AL07$DepDelay, na.rm = TRUE)
+mean(newN999CA07$DepDelay, na.rm = TRUE)
+
+#finding average arrival delay for new
+mean(newN739AL07$ArrDelay, na.rm = TRUE)
+mean(newN358AA07$ArrDelay, na.rm = TRUE)
+mean(newN738AL07$ArrDelay, na.rm = TRUE)
+mean(newN843AL07$ArrDelay, na.rm = TRUE)
+mean(newN999CA07$ArrDelay, na.rm = TRUE)
+
+
+##Comparing new and old plane data for 2006
+
+#comparing departure and arrival delay in 2006 for older planes
+a <-c('N567AA', 'N402AA', 'N444AA', 'N227AA', 'N300SW')
+b <-c(10.06, 9.68, 9.57, 9.42, 10.76)
+c <-c(9.49, 8.19, 8.75, 8.48, 6.42)
+old_delay_2006 <- data.frame(a,b,c)
+names(old_delay_2006) <- c('Tail Number', 'Departure Delay(2006)', 'Arrival Delay(2006)') 
+
+#comparing departure and arrival delay in 2006 for newer planes
+a <-c('N739AL', 'N358AA', 'N738AL', 'N843AL', 'N999CA')
+b <-c(6.57, 8.60, 7.73, NA, 12.33)
+c <-c(3.59, 8.95, 4.41, NA, 13.45)
+new_delay_2006 <- data.frame(a,b,c)
+names(new_delay_2006) <- c('Tail Number', 'Departure Delay(2006)', 'Arrival Delay(2006)') 
+
+#comparing departure and arrival delay in 2007 for older planes
+a <-c('N567AA', 'N402AA', 'N444AA', 'N227AA', 'N300SW')
+b <-c(11.45, 11.82, 15.02, 16.64, 11.17)
+c <-c(10.58, 10.92, 15.03, 17.38, 7.47)
+old_delay_2007 <- data.frame(a,b,c)
+names(old_delay_2007) <- c('Tail Number', 'Departure Delay(2007)', 'Arrival Delay(2007)')
+
+#comparing departure and arrival delay in 2007 for newer planes
+a <-c('N739AL', 'N358AA', 'N738AL', 'N843AL', 'N999CA')
+b <-c(5.57, 15.92, 3.65, -0.82, 10.86)
+c <-c(-1.95, 12.96, -4.49, -1.52, 10.91)
+new_delay_2007 <- data.frame(a,b,c)
+names(new_delay_2007) <- c('Tail Number', 'Departure Delay(2007)', 'Arrival Delay(2007)') 
+
+#finding average of different tail numbers
+mean(old_delay_2006$`Departure Delay(2006)`)
+mean(old_delay_2006$`Arrival Delay(2006)`)
+mean(old_delay_2007$`Departure Delay(2007)`)
+mean(old_delay_2007$`Arrival Delay(2007)`)
+mean(new_delay_2006$`Departure Delay(2006)`, na.rm= TRUE)
+mean(new_delay_2006$`Arrival Delay(2006)`, na.rm = TRUE)
+mean(new_delay_2007$`Departure Delay(2007)`)
+mean(new_delay_2007$`Arrival Delay(2007)`)
+
+```

@@ -1,0 +1,35 @@
+---
+title: "Question 4"
+date: "4/1/2022"
+output: html_document
+---
+
+
+#Question 4
+
+```
+#load libraries 
+library("tidyverse")
+library("dplyr")
+library("ggplot2")
+library("stringr")
+
+#ensure dataset is working
+summary(X2006)
+summary(X2007)
+
+#arranging DepDelay timings in order, saw that max Arrdelay was also in line with the highest Depdelay timing
+
+#trying to locate flights with delay and then delay again at next airport
+data1 <- X2007[str_detect(X2007$TailNum, "N329NW"),]
+data1
+
+#just need to find delayed flights at certain airport, then at arriving airport, see what flights have delay
+
+#filtering different airports to find the trend
+data_DTW <- X2007[str_detect(X2007$Origin, "DTW"),]
+data_DTW
+data_DTW_dest <- X2007[str_detect(X2007$Dest, "DTW"),]
+data_DTW_dest
+
+```

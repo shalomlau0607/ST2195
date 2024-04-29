@@ -1,0 +1,125 @@
+---
+title: "Question 5"
+date: "4/1/2022"
+output: html_document
+---
+
+
+#Question 5
+
+```
+##Firstly, we import libraries and load data
+
+install.packages("paradox")
+install.packages("mlr3verse")
+library("paradox")
+library("mlr3")
+library("mlr3learners")
+library("mlr3pipelines")
+library("mlr3tuning")
+library("mlr3verse")
+
+
+##We need to import the data that we are using to build our predictive model which had ar been imported in Question 1.
+##We are using the same set of years in this question, which is 2006 and 2007. The data was already loaded in Question 1, so to make sure it is loaded properly:
+head(X2007)
+head(X2006)
+
+##Secondly, we need to clean the data and impute missing values or remove NA values in dataset
+library(tidyr)
+X2006_1 <- X2006 %>% drop_na(ArrDelay)
+X2007_1 <- X2007 %>% drop_na(ArrDelay)
+
+
+
+#setting up a task
+library('mlr3')
+task <-TaskRegr$new(id='delay_2006', backend=X2006_1, target='ArrDelay')
+
+#choosing a learner(library(mlr3learners))
+learner_lm <- lrn('regr.lm')    
+
+#To join together the above operations, creating a pipe
+library("mlr3pipelines")
+#po creates a PipeOps object representing a computational step
+gr_lm <- po('imputemean') %>>%
+  po(learner_lm)
+#combined learner
+glrn_lm <- GraphLearner$new(gr_lm) 
+
+##Now we view the combined learner as a separate algorithm. To evaluate its performance, we can:
+#train it in the training data
+#extract predictions for the test data
+#evaluate performance via the model evaluation metric
+
+
+#split data into training and test sets
+set.seed(1) 
+train_set <- sample(task$nrow, 0.7 * task$nrow)
+test_set <- setdiff(seq_len(task$nrow), train_set)
+
+#selecting a measure which is mse, use msr to get a dictionary of measures
+measure <- msr('regr.mse')  #until here can
+
+#train the model, then evaluate performance by contrasting predictions against actual data using model evaluation metric
+glrn_lm$train(task, row_ids=train_set)
+glrn_lm$predict(task, row_ids=test_set)$score(measure)   
+
+prediction <- glrn_lm$predict(task, row_ids=test_set)
+as.data.table(prediction)     
+
+##Tuning hyperparameters
+install.packages("glmnet")
+learner_ridge2 <- lrn('regr.glmnet')
+learner_ridge2$param_set$values <- list(alpha=0)
+
+gr_ridge2 <- po('scale') %>>%
+  po('imputemean') %>>%
+  po(learner_ridge2)
+
+glrn_ridge2 <- GraphLearner$new(gr_ridge2)   
+
+#set up tuning environment (library(mlr3tuning), library(paradox))
+tune_lamda <- ParamSet$new(list(
+  ParamDbl$new('regr.glmnet.lamda', lower = -100, upper = 3000)))
+tuner <- tnr('grid_search')
+terminator <- trm('evals', n_evals=2000)
+
+#put everything together in a new learner
+at_ridge <- AutoTuner$new(
+  learner = glrn_ridge2,
+  resampling = rsmp('cv', folds=10),
+  measure = measure,
+  search_space = tune_lambda,
+  terminator = terminator,
+  tuner = tuner
+)   
+
+#train the model and evaluate the performance
+at_ridge$train(task, row_ids = train_set)
+at_ridge$predict(task, row_ids = test_set)$score(measure) 
+
+#comparing different learners using benchmark function
+set.seed(123) #for reproducible results
+# list of learners      
+lrn_list <- list(
+  glrn_lm,
+  glrn_ridge,
+  at_ridge,
+  at_rf
+)
+
+#set benchmark design and run the comparisons
+bm_design <- benchmark_grid(task=task,
+                           resamplings=rsmp('cv', folds=10),
+                           learners=lrn_list)
+bmr <- benchmark(bm_design, store_models = TRUE) 
+
+library('mlr3viz')
+library('ggplot2')
+autoplot(bmr, measure=measure) +
+  theme(axis.text.x=element_text(angle=45, hjust=1))
+
+bmr$aggregate(measure) 
+
+```
